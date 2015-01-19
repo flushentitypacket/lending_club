@@ -12,3 +12,7 @@
 *.o
 *.a
 mkmf.log
+
+# Ignore rvm configuration
+.ruby-version
+.ruby-gemset
