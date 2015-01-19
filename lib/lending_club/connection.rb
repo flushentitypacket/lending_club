@@ -18,6 +18,13 @@ module LendingClub
       Faraday::Connection.new(options) do |connection|
         # connection.use FaradayMiddleware::RaiseHttpException
         connection.adapter(adapter)
+        case format
+        when :json
+          connection.use FaradayMiddleware::ParseJson
+        else
+          # FIXME raise a proper error class
+          raise 'invalid format'
+        end
       end
     end
 
