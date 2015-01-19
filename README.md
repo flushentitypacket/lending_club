@@ -29,3 +29,8 @@ TODO: Write usage instructions here
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+## Credit
+
+Credit where credit is due:
+I modeled this gem closely after the Instagram API gem [instagram-ruby-gem](https://github.com/Instagram/instagram-ruby-gem).
