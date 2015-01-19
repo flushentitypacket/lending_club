@@ -1,5 +1,4 @@
 require 'lending_club/connection'
-require 'lending_club/response'
 
 module LendingClub
   # Defines HTTP request methods
@@ -25,7 +24,7 @@ module LendingClub
           raise 'some error'
         end
       end
-      return LendingClub::Response.new(response.body)
+      return response.body
     end
 
   end
