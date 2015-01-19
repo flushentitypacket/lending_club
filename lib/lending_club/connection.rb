@@ -11,8 +11,7 @@ module LendingClub
           'User-Agent' => user_agent,
           'Authorization' => access_token
           },
-        # TODO maybe this should be some sort of default scope
-        :url => "#{endpoint}/accounts/#{investor_id}",
+        :url => endpoint,
       }
 
       Faraday::Connection.new(options) do |connection|
