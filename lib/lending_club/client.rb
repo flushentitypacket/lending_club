@@ -12,5 +12,9 @@ module LendingClub
       Note.collection(get("accounts/#{investor_id}/detailednotes"))
     end
 
+    def portfolios
+      Portfolio.collection(get("accounts/#{investor_id}/portfolios"))
+    end
+
   end
 end
