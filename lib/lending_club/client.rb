@@ -25,5 +25,12 @@ module LendingClub
       Portfolio.new(post("accounts/#{investor_id}/portfolios", options))
     end
 
+    def order(orders, aid = nil)
+      order_collection = OrderCollection.new(orders, aid || investor_id)
+      response = post("accounts/#{investor_id}/orders", order_collection.to_h)
+      order_collection.update_orders(response)
+      orders
+    end
+
   end
 end
