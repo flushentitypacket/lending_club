@@ -11,6 +11,11 @@ module LendingClub
       request(:get, path, options)
     end
 
+    # Perform an HTTP POST request
+    def post(path, options={})
+      request(:post, path, options)
+    end
+
     private
 
     # Perform an HTTP request
@@ -19,6 +24,9 @@ module LendingClub
         case method
         when :get
           request.url(path, options)
+        when :post
+          request.path = path
+          request.body = options unless options.empty?
         else
           # FIXME raise appropriate error here
           raise 'some error'
