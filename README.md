@@ -1,26 +1,34 @@
 # LendingClub
 
-TODO: Write a gem description
+A Ruby wrapper for the [Lending Club API](https://www.lendingclub.com/developers/lc-api.action).
 
 ## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'lending_club'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
 
     $ gem install lending_club
 
 ## Usage
 
-TODO: Write usage instructions here
+### Obtain credentials
+1. [Request access](https://www.lendingclub.com/account/profile.action) to the Lending Club API to obtain your key.
+2. Log in to find your investor id. You can find it in your account summary ("My Account yourinvestorid").
+
+### Example
+```ruby
+# Set credentials
+LendingClub.access_token = 'abc123'
+LendingClub.investor_id = '12345678'
+# Make a call
+summary = LendingClub.summary
+# Check available cash
+summary.available_cash
+```
+
+### Console
+Create a credentials.yml from the example in the /config dir.
+
+    $ rake console
+
+The console task will load and set your credentials from the credentials.yml, so you can start using the API right away.
 
 ## Contributing
 
