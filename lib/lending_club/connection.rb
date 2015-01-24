@@ -1,3 +1,6 @@
+require 'faraday_middleware'
+Dir[File.expand_path('../../faraday/*.rb', __FILE__)].each{|f| require f}
+
 module LendingClub
   # @private
   module Connection
@@ -18,6 +21,7 @@ module LendingClub
         connection.request format
         connection.response format
         connection.adapter Faraday.default_adapter
+        connection.use FaradayMiddleware::RaiseHttpException
       end
     end
 
