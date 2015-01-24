@@ -2,7 +2,8 @@ module LendingClub
   class OrderCollection
 
     def initialize(orders, aid)
-      @orders = orders
+      @orders = []
+      orders.each { |o| add(o) }
       @aid = aid
     end
 
@@ -31,15 +32,29 @@ module LendingClub
       self
     end
 
+    def add(order)
+      is_valid, error_message = validate(order)
+      raise error_message unless is_valid
+      @orders << order
+      self
+    end
+
     private
 
-    # FIXME this relies on loan_id being unique across all orders,
-    # which is not enforced anywhere.
+    def validate(order)
+      unless order.is_a?(Order)
+        return false, 'Each order must be of type Order'
+      end
+
+      if @orders.include?(order.loan_id)
+        return false, "Order with #{order.loan_id} already exists in collection"
+      end
+
+      true
+    end
+
     def lookup(loan_id)
-      return @orders_map[loan_id] if @orders_map
-      @orders_map = {}
-      @orders.each {|o| @orders_map[o.loan_id] = o}
-      @orders_map[loan_id]
+      @orders.detect { |o| o.loan_id == loan_id }
     end
 
   end
