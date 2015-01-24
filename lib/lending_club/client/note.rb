@@ -2,6 +2,7 @@ require 'bigdecimal'
 
 module LendingClub
   class Note
+
     # @String Loan status
     attr_reader :loan_status
     # @Integer Loan Id
@@ -80,5 +81,13 @@ module LendingClub
       @interest_received = BigDecimal.new(data_hash['interestReceived'])
       @principal_received = BigDecimal.new(data_hash['principalReceived'])
     end
+
+    def self.collection(data_hash)
+      return [] unless data_hash['loans']
+      data_hash['loans'].map do |loan|
+        new(loan.tap {|h| h['asOfDate'] = data_hash['asOfDate']})
+      end
+    end
+
   end
 end
