@@ -1,6 +1,11 @@
 module LendingClub
   class OrderCollection
 
+    # array of Orders
+    attr_reader :orders
+    # actor id
+    attr_reader :aid
+
     def initialize(orders, aid)
       @orders = []
       orders.each { |o| add(o) }
