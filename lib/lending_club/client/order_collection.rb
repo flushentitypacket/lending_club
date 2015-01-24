@@ -28,11 +28,9 @@ module LendingClub
     def update_orders(response)
       response['orderConfirmations'].each do |confirmation|
         order = lookup(confirmation['loanId'])
-        order.status = confirmation['executionStatus']
-        # FIXME this is a stupid way of bypassing BigDecimal throwing for not
-        # specifying precision for a float value. need to address issue of
-        # what kind of object currency values should be stored in.
-        order.invested_amount = BigDecimal.new(confirmation['investedAmount'].to_s)
+        order.order_instruct_id = Integer(confirmation['orderInstructId'])
+        order.invested_amount = Integer(confirmation['investedAmount'])
+        order.execution_status = confirmation['executionStatus']
       end
       self
     end

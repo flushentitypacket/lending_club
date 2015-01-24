@@ -10,18 +10,25 @@ module LendingClub
     # @BigDecimal Amount to be invested in this loan
     attr_reader :requested_amount
 
+    # @Integer A unique LC assigned id identifying the OrderInstruct.
+    attr_reader :order_instruct_id
+    # @String Indicates the status of the execution.
+    attr_reader :execution_status
+    # @Integer Actual amount that was invested in this loan.
+    attr_reader :invested_amount
+
     # @private
-    attr_accessor :status, :invested_amount
+    attr_writer :execution_status, :invested_amount
 
     def initialize(portfolio_id, loan_id, requested_amount)
       @portfolio_id = Integer(portfolio_id)
       @loan_id = Integer(loan_id)
       @requested_amount = BigDecimal.new(requested_amount)
-      @status = []
+      @execution_status = []
     end
 
     def fulfilled?
-      @status.include?("ORDER_FULFILLED")
+      @execution_status.include?("ORDER_FULFILLED")
     end
 
   end
