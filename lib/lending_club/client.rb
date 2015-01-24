@@ -29,7 +29,7 @@ module LendingClub
       order_collection = OrderCollection.new(orders, aid || investor_id)
       response = post("accounts/#{investor_id}/orders", order_collection.to_h)
       order_collection.update_orders(response)
-      orders
+      order_collection.orders
     end
 
     def loans(show_all = true)
