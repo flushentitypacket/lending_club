@@ -28,8 +28,7 @@ module LendingClub
           request.path = path
           request.body = options unless options.empty?
         else
-          # FIXME raise appropriate error here
-          raise 'some error'
+          raise Error.new("Unhandled request method #{method}")
         end
       end
       return response.body

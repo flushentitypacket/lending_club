@@ -37,7 +37,7 @@ module LendingClub
 
     def add(order)
       is_valid, error_message = validate(order)
-      raise error_message unless is_valid
+      raise Error.new(error_message) unless is_valid
       @orders << order
       self
     end
