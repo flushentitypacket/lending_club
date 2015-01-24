@@ -16,3 +16,6 @@ mkmf.log
 # Ignore rvm configuration
 .ruby-version
 .ruby-gemset
+
+# Ignore stored credentials
+config/credentials.yml
