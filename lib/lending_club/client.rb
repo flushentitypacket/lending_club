@@ -32,5 +32,10 @@ module LendingClub
       orders
     end
 
+    def loans(show_all = true)
+      parameters = { 'showAll' => show_all ? 'true' : 'false' }
+      Loan.collection(get('loans/listing', parameters))
+    end
+
   end
 end
