@@ -34,7 +34,7 @@ module LendingClub
       @account_total = BigDecimal.new(data_hash['accountTotal'])
       @total_notes = Integer(data_hash['totalNotes'])
       @total_portfolios = Integer(data_hash['totalPortfolios'])
-      @in_funding_balance = BigDecimal.new(data_hash['inFundingBalance'])
+      @in_funding_balance = BigDecimal.new(data_hash['infundingBalance'])
       @received_interest = BigDecimal.new(data_hash['receivedInterest'])
       @received_principal = BigDecimal.new(data_hash['receivedPrincipal'])
       if data_hash['receivedLateFees']
