@@ -1,15 +1,15 @@
 module LendingClub
   class OrderCollection
 
-    # array of Orders
+    # @return [Array<Order>] array of Orders
     attr_reader :orders
-    # actor id
+    # @return [Integer] The member id of the account under management.
     attr_reader :aid
 
     def initialize(orders, aid)
       @orders = []
       orders.each { |o| add(o) }
-      @aid = aid
+      @aid = Integer(aid)
     end
 
     def to_h

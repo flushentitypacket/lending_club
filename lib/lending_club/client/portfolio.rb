@@ -3,17 +3,19 @@ require 'bigdecimal'
 module LendingClub
   class Portfolio
 
-    # @Integer Portfolio Id
+    # @return [Integer] Portfolio Id
     attr_reader :portfolio_id
-    # @String Portfolio name
+    # @return [String] Portfolio name
     attr_reader :portfolio_name
-    # @String Portfolio description
+    # @return [String, nil] Portfolio description
     attr_reader :portfolio_description
 
     def initialize(data_hash)
       @portfolio_id = Integer(data_hash['portfolioId'])
       @portfolio_name = data_hash['portfolioName'].to_s
-      @portfolio_description = data_hash['portfolioDescription'].to_s
+      if data_hash['portfolioDescription']
+        @portfolio_description = data_hash['portfolioDescription'].to_s
+      end
     end
 
     def self.collection(data_hash)

@@ -3,61 +3,63 @@ require 'bigdecimal'
 module LendingClub
   class Note
 
-    # @String Loan status
+    # @return [String] Loan status
     attr_reader :loan_status
-    # @Integer Loan Id
+    # @return [Integer] Loan Id
     attr_reader :loan_id
-    # @String Portfolio name
+    # @return [String, nil] Portfolio name
     attr_reader :portfolio_name
-    # @Integer Note Id
+    # @return [Integer] Note Id
     attr_reader :note_id
-    # @String Grade
+    # @return [String] Grade
     attr_reader :grade
-    # @BigDecimal Loan amount
+    # @return [BigDecimal] Loan amount
     attr_reader :loan_amount
-    # @BigDecimal Accrued Interest
+    # @return [BigDecimal] Accrued Interest
     attr_reader :accrued_interest
-    # @BigDecimal Note amount
+    # @return [BigDecimal] Note amount
     attr_reader :note_amount
-    # @String Purpose
+    # @return [String] Purpose
     attr_reader :purpose
-    # @Number Interest rate
+    # @return [Number] Interest rate
     attr_reader :interest_rate
-    # @Integer Portfolio Id
+    # @return [Integer, nil] Portfolio Id
     attr_reader :portfolio_id
-    # @Integer Order Id
+    # @return [Integer] Order Id
     attr_reader :order_id
-    # @Integer Loan length
+    # @return [Integer] Loan length
     attr_reader :loan_length
-    # @String Issue date
+    # @return [String, nil] Issue date
     attr_reader :issue_date
-    # @String Order date
+    # @return [String] Order date
     attr_reader :order_date
-    # @String Loan status date
+    # @return [String] Loan status date
     attr_reader :loan_status_date
-    # @String Credit trend
+    # @return [String] Credit trend
     attr_reader :credit_trend
-    # @String Current payment status
+    # @return [String, nil] Current payment status
     attr_reader :current_payment_status
-    # @Boolean Can be traded
+    # @return [Boolean] Can be traded
     attr_reader :can_be_traded
-    # @BigDecimal Payments received
+    # @return [BigDecimal] Payments received
     attr_reader :payments_received
-    # @String Next payment date
+    # @return [String, nil] Next payment date
     attr_reader :next_payment_date
-    # @BigDecimal Principal pending
+    # @return [BigDecimal] Principal pending
     attr_reader :principal_pending
-    # @BigDecimal Interest pending
+    # @return [BigDecimal] Interest pending
     attr_reader :interest_pending
-    # @BigDecimal Interest received
+    # @return [BigDecimal] Interest received
     attr_reader :interest_received
-    # @BigDecimal Principal received
+    # @return [BigDecimal] Principal received
     attr_reader :principal_received
 
     def initialize(data_hash)
       @loan_status = data_hash['loanStatus'].to_s
       @loan_id = Integer(data_hash['loanId'])
-      @portfolio_name = data_hash['portfolioName'].to_s
+      if data_hash['portfolioName']
+        @portfolio_name = data_hash['portfolioName'].to_s
+      end
       @note_id = Integer(data_hash['noteId'])
       @grade = data_hash['grade'].to_s
       @loan_amount = BigDecimal.new(data_hash['loanAmount'])
@@ -65,17 +67,25 @@ module LendingClub
       @note_amount = BigDecimal.new(data_hash['noteAmount'])
       @purpose = data_hash['purpose'].to_s
       @interest_rate = Float(data_hash['interestRate'])
-      @portfolio_id = Integer(data_hash['portfolioId'])
+      if data_hash['portfolioId']
+        @portfolio_id = Integer(data_hash['portfolioId'])
+      end
       @order_id = Integer(data_hash['orderId'])
       @loan_length = Integer(data_hash['loanLength'])
-      @issue_date = data_hash['issueDate'].to_s
+      if data_hash['issueDate']
+        @issue_date = data_hash['issueDate'].to_s
+      end
       @order_date = data_hash['orderDate'].to_s
       @loan_status_date = data_hash['loanStatusDate'].to_s
       @credit_trend = data_hash['creditTrend'].to_s
-      @current_payment_status = data_hash['currentPaymentStatus'].to_s
+      if data_hash['currentPaymentStatus']
+        @current_payment_status = data_hash['currentPaymentStatus'].to_s
+      end
       @can_be_traded = boolean(data_hash['canBeTraded'])
       @payments_received = BigDecimal.new(data_hash['paymentsReceived'])
-      @next_payment_date = data_hash['nextPaymentDate'].to_s
+      if data_hash['nextPaymentDate']
+        @next_payment_date = data_hash['nextPaymentDate'].to_s
+      end
       @principal_pending = BigDecimal.new(data_hash['principalPending'])
       @interest_pending = BigDecimal.new(data_hash['interestPending'])
       @interest_received = BigDecimal.new(data_hash['interestReceived'])
