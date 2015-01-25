@@ -1,5 +1,12 @@
 require "bundler/gem_tasks"
+require 'rake/testtask'
 
+Rake::TestTask.new do |t|
+  t.libs << 'test'
+  t.pattern = "test/**/*_test.rb"
+end
+
+desc "Start console with credentials auto-loaded from config/credentials.yml"
 task :console do
   require 'irb'
   require 'irb/completion'
