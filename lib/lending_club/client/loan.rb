@@ -3,6 +3,95 @@ require 'bigdecimal'
 module LendingClub
   class Loan
 
+    ATTRIBUTES = [
+      :as_of_date,
+      :id,
+      :member_id,
+      :term,
+      :int_rate,
+      :exp_default_rate,
+      :service_fee_rate,
+      :installment,
+      :grade,
+      :sub_grade,
+      :emp_length,
+      :home_ownership,
+      :annual_inc,
+      :is_inc_v,
+      :accept_d,
+      :exp_d,
+      :list_d,
+      :credit_pull_d,
+      :review_status_d,
+      :review_status,
+      :desc,
+      :purpose,
+      :addr_zip,
+      :addr_state,
+      :investor_count,
+      :ils_exp_d,
+      :initial_list_status,
+      :emp_title,
+      :acc_now_delinq,
+      :acc_open_past24_mths,
+      :bc_open_to_buy,
+      :percent_bc_gt75,
+      :bc_util,
+      :dti,
+      :delinq2_yrs,
+      :delinq_amnt,
+      :earliest_cr_line,
+      :fico_range_low,
+      :fico_range_high,
+      :inq_last6_mths,
+      :mths_since_last_delinq,
+      :mths_since_last_record,
+      :mths_since_recent_inq,
+      :mths_since_recent_revol_delinq,
+      :mths_since_recent_bc,
+      :mort_acc,
+      :open_acc,
+      :pub_rec,
+      :total_bal_ex_mort,
+      :revol_bal,
+      :revol_util,
+      :total_bc_limit,
+      :total_acc,
+      :total_il_high_credit_limit,
+      :num_rev_accts,
+      :mths_since_recent_bc_dlq,
+      :pub_rec_bankruptcies,
+      :num_accts_ever120_ppd,
+      :chargeoff_within12_mths,
+      :collections12_mths_ex_med,
+      :tax_liens,
+      :mths_since_last_major_derog,
+      :num_sats,
+      :num_tl_op_past12m,
+      :mo_sin_rcnt_tl,
+      :tot_hi_cred_lim,
+      :tot_cur_bal,
+      :avg_cur_bal,
+      :num_bc_tl,
+      :num_actv_bc_tl,
+      :num_bc_sats,
+      :pct_tl_nvr_dlq,
+      :num_tl90g_dpd24m,
+      :num_tl30dpd,
+      :num_tl120dpd2m,
+      :num_il_tl,
+      :mo_sin_old_il_acct,
+      :num_actv_rev_tl,
+      :mo_sin_old_rev_tl_op,
+      :mo_sin_rcnt_rev_tl_op,
+      :total_rev_hi_lim,
+      :num_rev_tl_bal_gt0,
+      :num_op_rev_tl,
+      :tot_coll_amt,
+      :funded_amount,
+      :loan_amount
+    ]
+
     # @return [String] As of date
     attr_reader :as_of_date
     # @return [Integer] A unique LC assigned ID for the loan listing.
@@ -446,6 +535,13 @@ module LendingClub
     def self.collection(response)
       response['loans'].map do |loan|
         new(loan.merge('asOfDate' => response['asOfDate']))
+      end
+    end
+
+    def to_h
+      ATTRIBUTES.reduce({}) do |h, attribute|
+        h[attribute.to_s] = send(attribute)
+        h
       end
     end
 

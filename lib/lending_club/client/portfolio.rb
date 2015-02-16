@@ -3,6 +3,12 @@ require 'bigdecimal'
 module LendingClub
   class Portfolio
 
+    ATTRIBUTES = [
+      :portfolio_id,
+      :portfolio_name,
+      :portfolio_description
+    ]
+
     # @return [Integer] Portfolio Id
     attr_reader :portfolio_id
     # @return [String] Portfolio name
@@ -22,6 +28,13 @@ module LendingClub
       return [] unless data_hash['myPortfolios']
       data_hash['myPortfolios'].map do |portfolio|
         new(portfolio)
+      end
+    end
+
+    def to_h
+      ATTRIBUTES.reduce({}) do |h, attribute|
+        h[attribute.to_s] = send(attribute)
+        h
       end
     end
 

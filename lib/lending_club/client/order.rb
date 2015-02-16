@@ -3,6 +3,15 @@ require 'bigdecimal'
 module LendingClub
   class Order
 
+    ATTRIBUTES = [
+      :portfolio_id,
+      :loan_id,
+      :requested_amount,
+      :order_instruct_id,
+      :execution_status,
+      :invested_amount
+    ]
+
     # @return [Integer, nil] Unique LC assigned id for the portfolio which
     # this note should be assigned if the order is submitted successfully.
     attr_reader :portfolio_id
@@ -32,6 +41,13 @@ module LendingClub
 
     def fulfilled?
       @execution_status.include?("ORDER_FULFILLED")
+    end
+
+    def to_h
+      ATTRIBUTES.reduce({}) do |h, attribute|
+        h[attribute.to_s] = send(attribute)
+        h
+      end
     end
 
   end
