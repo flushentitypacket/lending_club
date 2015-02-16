@@ -30,6 +30,10 @@ Create a credentials.yml from the example in the /config dir.
 
 The console task will load and set your credentials from the credentials.yml, so you can start using the API right away.
 
+## Changelog
+_0.0.2_
+Added #to_h feature to all client objects.
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/lending_club/fork )
