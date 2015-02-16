@@ -2,6 +2,19 @@ require 'bigdecimal'
 
 module LendingClub
   class Summary
+    ATTRIBUTES = [
+      :available_cash,
+      :investor_id,
+      :accrued_interest,
+      :outstanding_principal,
+      :account_total,
+      :total_notes,
+      :total_portfolios,
+      :in_funding_balance,
+      :received_interest,
+      :received_principal,
+      :received_late_fees
+    ]
 
     # @return BigDecimal Available cash amount
     attr_reader :available_cash
@@ -39,6 +52,13 @@ module LendingClub
       @received_principal = BigDecimal.new(data_hash['receivedPrincipal'])
       if data_hash['receivedLateFees']
         @received_late_fees = BigDecimal.new(data_hash['receivedLateFees'])
+      end
+    end
+
+    def to_h
+      ATTRIBUTES.reduce({}) do |h, attribute|
+        h[attribute.to_s] = send(attribute)
+        h
       end
     end
 

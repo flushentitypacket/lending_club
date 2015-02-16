@@ -3,6 +3,34 @@ require 'bigdecimal'
 module LendingClub
   class Note
 
+    ATTRIBUTES = [
+      :loan_status,
+      :loan_id,
+      :portfolio_name,
+      :note_id,
+      :grade,
+      :loan_amount,
+      :accrued_interest,
+      :note_amount,
+      :purpose,
+      :interest_rate,
+      :portfolio_id,
+      :order_id,
+      :loan_length,
+      :issue_date,
+      :order_date,
+      :loan_status_date,
+      :credit_trend,
+      :current_payment_status,
+      :can_be_traded,
+      :payments_received,
+      :next_payment_date,
+      :principal_pending,
+      :interest_pending,
+      :interest_received,
+      :principal_received
+    ]
+
     # @return [String] Loan status
     attr_reader :loan_status
     # @return [Integer] Loan Id
@@ -96,6 +124,13 @@ module LendingClub
       return [] unless data_hash['loans']
       data_hash['loans'].map do |loan|
         new(loan.tap {|h| h['asOfDate'] = data_hash['asOfDate']})
+      end
+    end
+
+    def to_h
+      ATTRIBUTES.reduce({}) do |h, attribute|
+        h[attribute.to_s] = send(attribute)
+        h
       end
     end
 
